@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Print Collections — MS Leeds Studio</title>
+<meta name="description" content="Browse limited edition fine art photography prints from MS Leeds Studio — Western Queensland landscapes, printed on cotton rag and sealed in editions of 25.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Cormorant+Garamond:ital@1&family=Allura&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .filter-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:50px; }
+  .filter-row button {
+    background:transparent; border:1px solid var(--line); padding:9px 18px;
+    font-family:var(--font-body); font-size:0.7rem; letter-spacing:var(--tracking-caps);
+    text-transform:uppercase; cursor:pointer; color:var(--ink);
+  }
+  .filter-row button.active, .filter-row button:hover { background:var(--ink); color:var(--linen); border-color:var(--ink); }
+  .print-card { border-bottom:1px solid var(--line); padding-bottom:6px; }
+  .print-meta { display:flex; justify-content:space-between; align-items:baseline; margin-top:16px; }
+  .print-meta h3 { font-size:1.05rem; margin:0; }
+  .print-price { font-family:var(--font-body); font-size:0.85rem; color:var(--walnut); }
+  .print-sub { font-size:0.85rem; color:var(--walnut); margin:4px 0 14px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand-mark">MS LEEDS STUDIO<small>Fine Art Photography</small></a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html" class="active">Prints</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="bugalugs/index.html">Bugalugs Photo Booth</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="btn btn-solid">Enquire</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="section-dark" style="padding:90px 0 70px;">
+  <div class="container">
+    <span class="eyebrow on-dark">The Catalogue</span>
+    <h1 style="color:var(--paper);max-width:16ch;">Print Collections</h1>
+    <p class="lede" style="color:var(--dust);max-width:52ch;">Limited edition fine art prints from Western and South-West Queensland. Each work is printed on 300gsm cotton rag, hand-numbered and signed, in an edition of 25. Prices shown are a guide — every enquiry receives full sizing and edition-availability details.</p>
+  </div>
+</section>
+
+<section class="section-paper">
+  <div class="container">
+
+    <div class="filter-row" role="tablist" aria-label="Filter by collection">
+      <button class="active" data-filter="all">All Works</button>
+      <button data-filter="paddock">The Paddock</button>
+      <button data-filter="sky">Open Sky</button>
+      <button data-filter="homestead">Homestead Light</button>
+      <button data-filter="river">Western Rivers</button>
+    </div>
+
+    <div class="grid grid-3" id="print-grid">
+
+      <div class="print-card" data-cat="paddock">
+        <div class="frame square"><span class="frame-caption">Mulga at First Light — Charleville</span></div>
+        <div class="print-meta"><h3>Mulga at First Light</h3><span class="print-price">From $480</span></div>
+        <p class="print-sub">The Paddock · Charleville, QLD · Edition of 25</p>
+        <a href="contact.html?print=Mulga%20at%20First%20Light" class="btn">Enquire</a>
+      </div>
+
+      <div class="print-card" data-cat="sky">
+        <div class="frame square"><span class="frame-caption">Storm Front, Western Downs</span></div>
+        <div class="print-meta"><h3>Storm Front, Western Downs</h3><span class="print-price">From $520</span></div>
+        <p class="print-sub">Open Sky · Roma, QLD · Edition of 25</p>
+        <a href="contact.html?print=Storm%20Front%2C%20Western%20Downs" class="btn">Enquire</a>
+      </div>
+
+      <div class="print-card" data-cat="homestead">
+        <div class="frame square"><span class="frame-caption">Tin &amp; Timber, Augathella</span></div>
+        <div class="print-meta"><h3>Tin &amp; Timber</h3><span class="print-price">From $450</span></div>
+        <p class="print-sub">Homestead Light · Augathella, QLD · Edition of 25</p>
+        <a href="contact.html?print=Tin%20%26%20Timber" class="btn">Enquire</a>
+      </div>
+
+      <div class="print-card" data-cat="river">
+        <div class="frame square"><span class="frame-caption">The Warrego, Low and Slow</span></div>
+        <div class="print-meta"><h3>The Warrego, Low and Slow</h3><span class="print-price">From $480</span></div>
+        <p class="print-sub">Western Rivers · Charleville, QLD · Edition of 25</p>
+        <a href="contact.html?print=The%20Warrego%2C%20Low%20and%20Slow" class="btn">Enquire</a>
+      </div>
+
+      <div class="print-card" data-cat="paddock">
+        <div class="frame square"><span class="frame-caption">Last Light, Mitchell Grass</span></div>
+        <div class="print-meta"><h3>Last Light, Mitchell Grass</h3><span class="print-price">From $480</span></div>
+        <p class="print-sub">The Paddock · Morven, QLD · Edition of 25</p>
+        <a href="contact.html?print=Last%20Light%2C%20Mitchell%20Grass" class="btn">Enquire</a>
+      </div>
+
+      <div class="print-card" data-cat="sky">
+        <div class="frame square"><span class="frame-caption">Milky Way, Quilpie</span></div>
+        <div class="print-meta"><h3>Milky Way, Quilpie</h3><span class="print-price">From $560</span></div>
+        <p class="print-sub">Open Sky · Quilpie, QLD · Edition of 25</p>
+        <a href="contact.html?print=Milky%20Way%2C%20Quilpie" class="btn">Enquire</a>
+      </div>
+
+      <div class="print-card" data-cat="homestead">
+        <div class="frame square"><span class="frame-caption">The Verandah, Cunnamulla</span></div>
+        <div class="print-meta"><h3>The Verandah</h3><span class="print-price">From $450</span></div>
+        <p class="print-sub">Homestead Light · Cunnamulla, QLD · Edition of 25</p>
+        <a href="contact.html?print=The%20Verandah" class="btn">Enquire</a>
+      </div>
+
+      <div class="print-card" data-cat="river">
+        <div class="frame square"><span class="frame-caption">Bridge at Bollon</span></div>
+        <div class="print-meta"><h3>Bridge at Bollon</h3><span class="print-price">From $480</span></div>
+        <p class="print-sub">Western Rivers · Bollon, QLD · Edition of 25</p>
+        <a href="contact.html?print=Bridge%20at%20Bollon" class="btn">Enquire</a>
+      </div>
+
+      <div class="print-card" data-cat="paddock">
+        <div class="frame square"><span class="frame-caption">Drovers Track, Tambo</span></div>
+        <div class="print-meta"><h3>Drovers Track</h3><span class="print-price">From $480</span></div>
+        <p class="print-sub">The Paddock · Tambo, QLD · Edition of 25</p>
+        <a href="contact.html?print=Drovers%20Track" class="btn">Enquire</a>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:70px;text-align:center;">
+      <p class="lede" style="max-width:52ch;margin:0 auto 20px;">Looking for a specific size, a commissioned piece, or trade pricing for a gallery or hospitality fit-out? Get in touch — most enquiries receive a reply within two business days.</p>
+      <a href="contact.html" class="btn btn-solid">Make an Enquiry</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="script">Come on bugalugs, you're missing it.</span>
+        <p>MS Leeds Studio — fine art photography, edition prints made and sealed in Charleville, Queensland.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="gallery.html">Print Collections</a></li>
+          <li><a href="about.html">About the Studio</a></li>
+          <li><a href="contact.html">Enquire</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bugalugs Photo Booth</h4>
+        <ul>
+          <li><a href="bugalugs/index.html">Overview</a></li>
+          <li><a href="bugalugs/experience.html">The Experience</a></li>
+          <li><a href="bugalugs/booking.html">Check Availability</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:sophie@msleeds.com">sophie@msleeds.com</a></li>
+          <li>Charleville, QLD 4470</li>
+          <li>Western &amp; South-West Queensland</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> MS Leeds Studio. All rights reserved.</span>
+      <span>Sophie Frances Leeds · Queensland, Australia</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  var buttons = document.querySelectorAll('.filter-row button');
+  var cards = document.querySelectorAll('#print-grid .print-card');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      buttons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      cards.forEach(function (card) {
+        card.style.display = (filter === 'all' || card.getAttribute('data-cat') === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

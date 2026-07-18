@@ -1,0 +1,88 @@
+/* ==========================================================================
+   BUGALUGS BY MS LEEDS STUDIO — Sub-brand overrides
+   Palette: Mulga, Wattle Charcoal, Bone, Dust, Weathered Brass, Gum Bark.
+   Type: Playfair Display headings / Work Sans body (sub for Neue Haas Grotesk).
+   Loads after style.css and overrides the CSS custom properties + a few
+   sub-brand-specific components (props grid, principles list, uniform block).
+   ========================================================================== */
+
+body.bugalugs {
+  --ink: #1c1b19;              /* Wattle Charcoal */
+  --charcoal: #1c1b19;
+  --linen: #f1ece1;            /* Bone */
+  --paper: #f6f3ea;
+  --sand: #c9b79b;             /* Dust */
+  --kraft: #a9863e;            /* Weathered Brass */
+  --walnut: #6b4a36;           /* Gum Bark */
+  --rust: #4b5642;             /* Mulga (used as the accent role) */
+  --dust: #c9b79b;
+  --gold: #a9863e;
+  --gold-bright: #c9a227;
+  --line: rgba(28, 27, 25, 0.14);
+  --line-on-dark: rgba(241, 236, 225, 0.16);
+  --font-body: "Work Sans", -apple-system, sans-serif;
+  background: var(--linen);
+}
+
+body.bugalugs .script { color: var(--gold-bright); }
+body.bugalugs .eyebrow { color: var(--walnut); }
+body.bugalugs .hero-texture {
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(169,134,62,0.12), transparent 55%),
+    radial-gradient(ellipse at 85% 80%, rgba(75,86,66,0.28), transparent 55%),
+    linear-gradient(160deg, #17160f 0%, #1c1b19 55%, #17160f 100%);
+}
+body.bugalugs .card-icon,
+body.bugalugs .numbered-list .num { color: var(--gold-bright); }
+body.bugalugs .rule { background: var(--gold-bright); }
+body.bugalugs .frame {
+  background: linear-gradient(155deg, #cfc4a7 0%, #a9863e 50%, #6b4a36 100%);
+}
+body.bugalugs .frame.dark {
+  background: linear-gradient(155deg, #3c4736 0%, #262b21 55%, #1c1b19 100%);
+}
+body.bugalugs .btn { border-color: var(--ink); }
+body.bugalugs .btn:hover { background: var(--ink); color: var(--linen); }
+body.bugalugs .btn-solid { background: var(--ink); border-color: var(--ink); }
+body.bugalugs .btn-solid:hover { background: var(--gold-bright); border-color: var(--gold-bright); color: var(--ink); }
+body.bugalugs .step .num { color: var(--gold-bright); }
+body.bugalugs .card-icon { border-color: var(--gold-bright); color: var(--gold-bright); }
+
+/* ---- Principles list (two-column numbered) ---- */
+.principles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 60px;
+}
+
+/* ---- Props category grid ---- */
+.props-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.props-card { text-align: center; }
+.props-card .frame { margin-bottom: 16px; }
+.props-card h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Service area list ---- */
+.area-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 30px; }
+.area-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-on-dark);
+  font-size: 0.92rem;
+}
+
+/* ---- Event type tags ---- */
+.event-types { display: flex; flex-wrap: wrap; gap: 12px; }
+.event-types .tag { border-color: var(--gold-bright); color: var(--paper); }
+
+@media (max-width: 760px) {
+  .principles-grid { grid-template-columns: 1fr; }
+  .props-grid { grid-template-columns: 1fr 1fr; }
+  .area-list { grid-template-columns: 1fr 1fr; }
+}

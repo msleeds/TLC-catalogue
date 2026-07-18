@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check Availability — Bugalugs by MS Leeds Studio</title>
+<meta name="description" content="Enquire about Bugalugs, the luxury open-air photo printing booth, for your wedding, engagement, birthday or event across Western and South-West Queensland.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Cormorant+Garamond:ital@1&family=Allura&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/bugalugs.css">
+</head>
+<body class="bugalugs">
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand-mark">BUGALUGS<small>by MS Leeds Studio</small></a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">The Experience</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="../index.html">MS Leeds Studio Prints</a></li>
+        <li><a href="booking.html" class="btn btn-solid">Check Availability</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="section-dark" style="padding:90px 0 70px;">
+  <div class="container">
+    <span class="eyebrow on-dark">Enquire</span>
+    <h1 style="color:var(--paper);max-width:16ch;">Come on, bugalugs &mdash; check your date</h1>
+    <p class="lede" style="color:var(--dust);max-width:52ch;">Tell us about your event and we'll come back with availability, package options and a quote. Bookings are confirmed with a signed agreement and retainer.</p>
+  </div>
+</section>
+
+<section class="section-linen">
+  <div class="container grid grid-2">
+    <div>
+      <span class="eyebrow">Booking Enquiry</span>
+      <h2>Tell us about your event</h2>
+      <div class="form-wrap">
+        <form data-enquiry-form action="#" method="POST">
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="phone">Mobile</label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="field">
+              <label for="eventType">Event Type</label>
+              <select id="eventType" name="eventType" required>
+                <option value="">Select&hellip;</option>
+                <option>Wedding</option>
+                <option>Engagement</option>
+                <option>Birthday</option>
+                <option>Corporate Event</option>
+                <option>Campdraft / Race Day</option>
+                <option>Ball / Fundraiser</option>
+                <option>Other Celebration</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="eventDate">Event Date</label>
+              <input type="date" id="eventDate" name="eventDate" required>
+            </div>
+            <div class="field">
+              <label for="guests">Estimated Guests</label>
+              <input type="number" id="guests" name="guests" min="1">
+            </div>
+          </div>
+          <div class="field">
+            <label for="venue">Venue / Location</label>
+            <input type="text" id="venue" name="venue" placeholder="Venue name and town">
+          </div>
+          <div class="field">
+            <label for="message">Anything else we should know?</label>
+            <textarea id="message" name="message" placeholder="Guest count, timing, indoor/outdoor, styling preferences..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-solid">Send Booking Enquiry</button>
+          <p class="form-note">This form is not yet connected to a live inbox — wire it up to a form service (e.g. Formspree, Netlify Forms) via the form's <code>action</code> attribute, or contact <a href="mailto:sophie@msleeds.com" style="text-decoration:underline;">sophie@msleeds.com</a> directly in the meantime.</p>
+        </form>
+        <div class="form-success">
+          <h3>Come on, bugalugs &mdash; got it.</h3>
+          <p style="margin:0;">Your enquiry has been noted. We'll be in touch with availability and a quote shortly.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <span class="eyebrow">Service Area</span>
+      <h2>Western &amp; South-West Queensland</h2>
+      <p>Based in Charleville and travelling throughout the region. If your town isn't listed, ask anyway — we regularly travel further afield for the right event.</p>
+      <ul class="area-list" style="border-top:1px solid var(--line);padding-top:16px;">
+        <li>Charleville</li><li>Cunnamulla</li><li>Quilpie</li>
+        <li>Roma</li><li>Mitchell</li><li>St George</li>
+        <li>Augathella</li><li>Morven</li><li>Tambo</li>
+        <li>Blackall</li><li>Barcaldine</li><li>Longreach</li>
+        <li>Injune</li><li>Surat</li><li>Bollon</li>
+        <li>Thargomindah</li><li>Eulo</li><li>Wyandra</li>
+      </ul>
+
+      <div class="card" style="margin-top:40px;">
+        <h3 style="font-size:1.1rem;">Good to Know</h3>
+        <ul class="numbered-list">
+          <li><span class="num">&mdash;</span><div>Allow roughly 3m &times; 3m of open, level space for the booth setup, indoors or out.</div></li>
+          <li><span class="num">&mdash;</span><div>A nearby power source is required; a generator can be arranged for remote locations.</div></li>
+          <li><span class="num">&mdash;</span><div>Bookings are confirmed with a signed agreement and retainer &mdash; full terms are provided at that stage.</div></li>
+          <li><span class="num">&mdash;</span><div>Travel is included within the core service area; further-afield events are quoted individually.</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="script">Come on, bugalugs, you're missing it.</span>
+        <p>Bugalugs by MS Leeds Studio — a luxury open-air photo printing booth for Western &amp; South-West Queensland.</p>
+      </div>
+      <div>
+        <h4>Bugalugs</h4>
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="experience.html">The Experience</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="booking.html">Check Availability</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MS Leeds Studio</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../gallery.html">Print Collections</a></li>
+          <li><a href="../about.html">About the Studio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:sophie@msleeds.com">sophie@msleeds.com</a></li>
+          <li>Charleville, QLD 4470</li>
+          <li>Western &amp; South-West Queensland</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> Bugalugs by MS Leeds Studio. All rights reserved.</span>
+      <span>Sophie Frances Leeds · Queensland, Australia</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

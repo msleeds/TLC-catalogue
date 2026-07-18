@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enquire — MS Leeds Studio</title>
+<meta name="description" content="Enquire about fine art prints from MS Leeds Studio — sizing, availability and pricing for Western Queensland photography editions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Cormorant+Garamond:ital@1&family=Allura&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand-mark">MS LEEDS STUDIO<small>Fine Art Photography</small></a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Prints</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="bugalugs/index.html">Bugalugs Photo Booth</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="contact.html" class="btn btn-solid">Enquire</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="section-linen" style="padding-top:90px;">
+  <div class="container grid grid-2">
+    <div>
+      <span class="eyebrow">Enquire</span>
+      <h1>Let's talk prints</h1>
+      <p class="lede">Whether you have a piece from the catalogue in mind, want a commission, or are enquiring on behalf of a gallery or hospitality fit-out — send the details through and expect a reply within two business days.</p>
+      <div class="rule"></div>
+      <p><strong>Email</strong><br><a href="mailto:sophie@msleeds.com" style="text-decoration:underline;">sophie@msleeds.com</a></p>
+      <p><strong>Studio</strong><br>Charleville, QLD 4470 · Western &amp; South-West Queensland</p>
+      <p><strong>Bugalugs booking enquiries</strong><br>Head to the <a href="bugalugs/booking.html" style="text-decoration:underline;">Bugalugs booking page</a> instead — event enquiries are handled there.</p>
+    </div>
+
+    <div class="form-wrap">
+      <form data-enquiry-form action="#" method="POST">
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="print">Print / Collection of Interest</label>
+          <input type="text" id="print" name="print" placeholder="e.g. Mulga at First Light">
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Tell us about the piece, size or space you have in mind..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-solid">Send Enquiry</button>
+        <p class="form-note">This form is not yet connected to a live inbox — wire it up to a form service (e.g. Formspree, Netlify Forms) via the form's <code>action</code> attribute, or contact <a href="mailto:sophie@msleeds.com" style="text-decoration:underline;">sophie@msleeds.com</a> directly in the meantime.</p>
+      </form>
+      <div class="form-success">
+        <h3>Thank you</h3>
+        <p style="margin:0;">Your enquiry has been noted. Sophie will be in touch within two business days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="script">Come on bugalugs, you're missing it.</span>
+        <p>MS Leeds Studio — fine art photography, edition prints made and sealed in Charleville, Queensland.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="gallery.html">Print Collections</a></li>
+          <li><a href="about.html">About the Studio</a></li>
+          <li><a href="contact.html">Enquire</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bugalugs Photo Booth</h4>
+        <ul>
+          <li><a href="bugalugs/index.html">Overview</a></li>
+          <li><a href="bugalugs/experience.html">The Experience</a></li>
+          <li><a href="bugalugs/booking.html">Check Availability</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:sophie@msleeds.com">sophie@msleeds.com</a></li>
+          <li>Charleville, QLD 4470</li>
+          <li>Western &amp; South-West Queensland</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> MS Leeds Studio. All rights reserved.</span>
+      <span>Sophie Frances Leeds · Queensland, Australia</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var printParam = params.get('print');
+  if (printParam) {
+    var field = document.getElementById('print');
+    if (field) field.value = printParam;
+  }
+</script>
+</body>
+</html>

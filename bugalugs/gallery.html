@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Bugalugs by MS Leeds Studio</title>
+<meta name="description" content="See Bugalugs in action across weddings, engagements, birthdays and country events throughout Western and South-West Queensland.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Cormorant+Garamond:ital@1&family=Allura&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/bugalugs.css">
+<style>
+  .filter-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:50px; }
+  .filter-row button {
+    background:transparent; border:1px solid var(--line); padding:9px 18px;
+    font-family:var(--font-body); font-size:0.7rem; letter-spacing:var(--tracking-caps);
+    text-transform:uppercase; cursor:pointer; color:var(--ink);
+  }
+  .filter-row button.active, .filter-row button:hover { background:var(--ink); color:var(--linen); border-color:var(--ink); }
+</style>
+</head>
+<body class="bugalugs">
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand-mark">BUGALUGS<small>by MS Leeds Studio</small></a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">The Experience</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="../index.html">MS Leeds Studio Prints</a></li>
+        <li><a href="booking.html" class="btn btn-solid">Check Availability</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="section-dark" style="padding:90px 0 70px;">
+  <div class="container">
+    <span class="eyebrow on-dark">Gallery</span>
+    <h1 style="color:var(--paper);max-width:16ch;">Bugalugs, on location</h1>
+    <p class="lede" style="color:var(--dust);max-width:52ch;">A look at the open-air setup, the styling and the portraits themselves — from weddings on the western downs to birthdays in Charleville backyards.</p>
+  </div>
+</section>
+
+<section class="section-paper">
+  <div class="container">
+    <div class="filter-row">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="wedding">Weddings</button>
+      <button data-filter="engagement">Engagements</button>
+      <button data-filter="birthday">Birthdays &amp; Private</button>
+      <button data-filter="corporate">Corporate &amp; Country Events</button>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="frame tall" data-cat="wedding"><span class="frame-caption">Wedding reception, Charleville</span></div>
+      <div class="frame square" data-cat="wedding"><span class="frame-caption">Bridal party portraits</span></div>
+      <div class="frame wide" data-cat="setup"><span class="frame-caption">Open air setup under string lights</span></div>
+      <div class="frame square" data-cat="engagement"><span class="frame-caption">Engagement celebration, Roma</span></div>
+      <div class="frame tall" data-cat="birthday"><span class="frame-caption">60th birthday, private property</span></div>
+      <div class="frame square" data-cat="corporate"><span class="frame-caption">Campdraft, Quilpie</span></div>
+      <div class="frame wide" data-cat="corporate"><span class="frame-caption">Corporate gala, Charleville</span></div>
+      <div class="frame square" data-cat="wedding"><span class="frame-caption">Golden hour portraits</span></div>
+      <div class="frame tall" data-cat="birthday"><span class="frame-caption">Milestone birthday portraits</span></div>
+      <div class="frame square" data-cat="engagement"><span class="frame-caption">Engagement party, Cunnamulla</span></div>
+      <div class="frame wide" data-cat="wedding"><span class="frame-caption">Reception dance floor</span></div>
+      <div class="frame square" data-cat="corporate"><span class="frame-caption">Race day, Blackall</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-linen" style="text-align:center;">
+  <div class="container">
+    <p class="pull-quote" style="margin:0 auto;">Every gathering matters.</p>
+    <a href="booking.html" class="btn btn-solid" style="margin-top:32px;">Check Availability For Your Event</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="script">Come on, bugalugs, you're missing it.</span>
+        <p>Bugalugs by MS Leeds Studio — a luxury open-air photo printing booth for Western &amp; South-West Queensland.</p>
+      </div>
+      <div>
+        <h4>Bugalugs</h4>
+        <ul>
+          <li><a href="index.html">Overview</a></li>
+          <li><a href="experience.html">The Experience</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="booking.html">Check Availability</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>MS Leeds Studio</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../gallery.html">Print Collections</a></li>
+          <li><a href="../about.html">About the Studio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:sophie@msleeds.com">sophie@msleeds.com</a></li>
+          <li>Charleville, QLD 4470</li>
+          <li>Western &amp; South-West Queensland</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> Bugalugs by MS Leeds Studio. All rights reserved.</span>
+      <span>Sophie Frances Leeds · Queensland, Australia</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+  var buttons = document.querySelectorAll('.filter-row button');
+  var items = document.querySelectorAll('#gallery-grid [data-cat]');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      buttons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      items.forEach(function (item) {
+        item.style.display = (filter === 'all' || item.getAttribute('data-cat') === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
