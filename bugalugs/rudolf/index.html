@@ -229,13 +229,12 @@ body {
 
   <div class="controls">
     <div class="phases" role="group" aria-label="Animations">
-      <button class="btn primary" id="speakBtn" type="button">Hear him say it</button>
+      <button class="btn primary" id="speakBtn" type="button">Scotch Finger warning</button>
       <button class="btn" data-phase="arrive" type="button">Arrive</button>
       <button class="btn" data-phase="flap" type="button">Flap</button>
       <button class="btn" data-phase="hop" type="button">Hop</button>
       <button class="btn" data-phase="ponder" type="button">Ponder</button>
       <button class="btn" data-phase="nein" type="button">Nein, nein</button>
-      <button class="btn" data-phase="lecture" type="button">Lecture</button>
     </div>
     <div class="voice-row">
       <label for="voiceSel">Voice</label>
@@ -254,9 +253,23 @@ body {
   const lids = [...document.querySelectorAll('.lid')];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // The line, shown with his accent on the page; spoken in plain English so a German voice supplies the accent.
-  const shown  = ['Come','now,','Sophie!','Zere','are','zings','to','be','done —','und','zat','does','not','mean','anozzer','<em>Scotch','Finger!</em>'];
-  const spoken = ['Come','now,','Sophie!','There','are','things','to','be','done,','and','that','does','not','mean','another','Scotch','Finger!'];
+  // Each line is shown with his accent on the page and spoken in plain English, so a German voice supplies the accent.
+  // Shown and spoken must have the same number of words so the reveal stays in step with the voice.
+  const LINES = {
+    arrive:  { shown: 'Guten Tag! Professor Rudolf has arrived. You may now look busy.',
+               spoken: 'Guten Tag! Professor Rudolf has arrived. You may now look busy.' },
+    flap:    { shown: 'Ach! Ze wings, zey are not so young as zey used to be.',
+               spoken: 'Ach! The wings, they are not so young as they used to be.' },
+    hop:     { shown: 'Hop, hop! Ve are wasting ze daylight, Sophie!',
+               spoken: 'Hop, hop! We are wasting the daylight, Sophie!' },
+    ponder:  { shown: 'Hmm… I am sinking. Ja, I am definitely sinking.',
+               spoken: 'Hmm... I am thinking. Ja, I am definitely thinking.' },
+    nein:    { shown: 'Nein, nein! Put ze biscuit down. Slowly.',
+               spoken: 'Nein, nein! Put the biscuit down. Slowly.' },
+    lecture: { shown: ['Come','now,','Sophie!','Zere','are','zings','to','be','done —','und','zat','does','not','mean','anozzer','<em>Scotch','Finger!</em>'],
+               spoken: 'Come now, Sophie! There are things to be done, and that does not mean another Scotch Finger!' }
+  };
+  const words = (x) => Array.isArray(x) ? x : x.split(' ');
 
   const EASE = 'cubic-bezier(.45,0,.55,1)';
   const anim = (el, frames, opts) => {
@@ -340,16 +353,23 @@ body {
     if (!soundOn && synth) synth.cancel();
   });
 
-  // Speaks the line and reveals words in step with the voice. Falls back to a timed reveal.
-  const sayLine = (withVoice) => new Promise((resolve) => {
+  // Sound can only start from a tap. Once someone has tapped, every phase speaks.
+  let heard = false;
+  const unlockVoice = () => {
+    heard = true;
+    if (synth && soundOn) { synth.cancel(); const u = new SpeechSynthesisUtterance(' '); u.volume = 0; synth.speak(u); }
+  };
+
+  // Speaks a line and reveals its words in step with the voice. Falls back to a timed reveal.
+  const sayLine = (key) => new Promise((resolve) => {
+    const shown = words(LINES[key].shown), spoken = words(LINES[key].spoken);
     const spans = fillLine(shown);
     const reveal = (n) => spans.forEach((s, i) => s.classList.toggle('on', i < n));
-    let timer = null, n = 0;
-    const timed = (step) => { clearInterval(timer); timer = setInterval(() => { reveal(++n); if (n >= spans.length) { clearInterval(timer); } }, step); };
-    const finish = () => { clearInterval(timer); reveal(spans.length); resolve(); };
-    if (reduce && !withVoice) { reveal(spans.length); return resolve(); }
+    let timer = null, n = 0, done = false;
+    const timed = (step) => { clearInterval(timer); timer = setInterval(() => { reveal(++n); if (n >= spans.length) clearInterval(timer); }, step); };
+    const finish = () => { if (done) return; done = true; clearInterval(timer); reveal(spans.length); resolve(); };
 
-    if (withVoice && soundOn && synth && voices.length) {
+    if (heard && soundOn && synth && voices.length) {
       synth.cancel();
       const text = spoken.join(' ');
       const starts = []; let pos = 0;
@@ -369,18 +389,29 @@ body {
       u.onend = () => setTimeout(finish, 150);
       u.onerror = () => { timed(150); setTimeout(finish, 150 * spans.length + 200); };
       synth.speak(u);
-      setTimeout(() => { if (!gotBoundary) timed(300); }, 700);
-      setTimeout(finish, 15000); // safety net
+      setTimeout(() => { if (!gotBoundary) timed(330); }, 700);
+      setTimeout(finish, 300 * spans.length + 4000); // safety net if the voice never reports an end
+    } else if (reduce) {
+      finish();
     } else {
       timed(150);
       setTimeout(finish, 150 * spans.length + 100);
     }
   });
 
+  // Opens the bubble and talks while the motion plays, then holds the line briefly and closes.
+  const talk = async (key, motion) => {
+    await closeBubble();
+    await openBubble(false);
+    const talking = sayLine(key);
+    await Promise.all([talking, motion ? motion(talking) : null]);
+    await wait(1800);
+    await closeBubble();
+  };
+
   /* ---- phases ---- */
-  const phases = {
+  const moves = {
     async arrive() {
-      await closeBubble();
       anim(ground, [{ transform: 'scale(.3)', opacity: .2 }, { transform: 'scale(1)', opacity: 1 }], { duration: 1150, easing: 'ease-out' });
       const wings = flapWings(5, 230, 40);
       await anim(rig, [
@@ -416,19 +447,13 @@ body {
     },
     async ponder() {
       await anim(head, [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-5deg)' }], { duration: 650 });
-      await wait(250);
-      fillLine(['Hmm…']).forEach(s => s.classList.add('on'));
-      await openBubble(true);
       await blink(2);
-      await wait(900);
-      await anim(head, [{ transform: 'rotate(-5deg)' }, { transform: 'rotate(4deg)' }], { duration: 700 });
       await wait(700);
-      await closeBubble();
+      await anim(head, [{ transform: 'rotate(-5deg)' }, { transform: 'rotate(4deg)' }], { duration: 700 });
+      await wait(500);
       await anim(head, [{ transform: 'rotate(4deg)' }, { transform: 'rotate(0deg)' }], { duration: 500 });
     },
     async nein() {
-      fillLine(['Nein,', 'nein!']).forEach(s => s.classList.add('on'));
-      openBubble(true);
       const shake = anim(head, [
         { transform: 'rotate(0)' }, { transform: 'rotate(-5deg)', offset: .2 }, { transform: 'rotate(5deg)', offset: .4 },
         { transform: 'rotate(-4deg)', offset: .6 }, { transform: 'rotate(3deg)', offset: .8 }, { transform: 'rotate(0)' }
@@ -439,31 +464,31 @@ body {
       ], { duration: 550, iterations: 2 });
       await flapWings(3, 220, 14);
       await Promise.all([shake, ruffle]);
-      await wait(700);
-      await closeBubble();
     },
-    // Wags his (viewer's right) wing like a finger while he speaks.
-    async lecture(withVoice = false) {
-      await closeBubble();
-      await phases.flap();
-      await anim(head, [{ transform: 'rotate(0)' }, { transform: 'rotate(3deg)' }], { duration: 300 });
-      await openBubble(false);
-      const talking = sayLine(withVoice);
-      await anim(wingR, [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-38deg)' }], { duration: 260 });
+    // Wags his (viewer's right) wing like a finger for as long as he is speaking.
+    async wag(talking) {
       let speaking = true;
       talking.then(() => { speaking = false; });
+      await anim(head, [{ transform: 'rotate(0)' }, { transform: 'rotate(3deg)' }], { duration: 300 });
+      await anim(wingR, [{ transform: 'rotate(0deg)' }, { transform: 'rotate(-38deg)' }], { duration: 260 });
       while (speaking && !reduce) {
         await Promise.all([
           anim(wingR, [{ transform: 'rotate(-38deg)' }, { transform: 'rotate(-24deg)' }, { transform: 'rotate(-38deg)' }], { duration: 420 }),
           anim(head, [{ transform: 'rotate(3deg)' }, { transform: 'rotate(1deg) translateY(.6%)' }, { transform: 'rotate(3deg)' }], { duration: 420 })
         ]);
       }
-      await talking;
       await Promise.all([rest(wingR, 'rotate(0deg)'), rest(head, 'rotate(0deg)')]);
       blink(1);
-      await wait(2600);
-      await closeBubble();
     }
+  };
+
+  const phases = {
+    arrive: async () => { await closeBubble(); await moves.arrive(); await talk('arrive'); },
+    flap:   () => talk('flap', () => moves.flap()),
+    hop:    () => talk('hop', () => moves.hop()),
+    ponder: () => talk('ponder', () => moves.ponder()),
+    nein:   () => talk('nein', () => moves.nein()),
+    lecture: async () => { await closeBubble(); await moves.flap(); await talk('lecture', (t) => moves.wag(t)); }
   };
 
   /* ---- queue so phases never collide ---- */
@@ -479,14 +504,13 @@ body {
     }
   };
   document.querySelectorAll('[data-phase]').forEach(b =>
-    b.addEventListener('click', () => run(() => phases[b.dataset.phase](), b)));
+    b.addEventListener('click', () => { if (busy) return; unlockVoice(); run(() => phases[b.dataset.phase](), b); }));
   const speakBtn = $('speakBtn');
-  speakBtn.addEventListener('click', () => {
-    if (synth && busy) synth.cancel();
-    run(() => phases.lecture(true), speakBtn);
-  });
+  speakBtn.addEventListener('click', () => { if (busy) return; unlockVoice(); run(() => phases.lecture(), speakBtn); });
   const owl = $('owl');
   const poke = () => {
+    if (busy) return;
+    unlockVoice();
     const pick = ['flap', 'hop', 'nein', 'ponder'][Math.floor(Math.random() * 4)];
     run(() => phases[pick]());
   };
@@ -497,7 +521,7 @@ body {
   const idle = () => { setTimeout(async () => { if (!busy) await blink(Math.random() < .25 ? 2 : 1); idle(); }, 2800 + Math.random() * 3200); };
 
   /* ---- opening sequence: arrive, flap, then the line (silent until someone taps for sound) ---- */
-  run(async () => { await phases.arrive(); await wait(300); await phases.lecture(false); }).then(idle);
+  run(async () => { await phases.arrive(); await wait(300); await phases.lecture(); }).then(idle);
 })();
 </script>
 
