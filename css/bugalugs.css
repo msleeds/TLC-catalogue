@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BUGALUGS BY MS LEEDS STUDIO — Sub-brand overrides
+   BUGALUGS BY Ms Leeds Studio — Sub-brand overrides
    Palette: Mulga, Wattle Charcoal, Bone, Dust, Weathered Brass, Gum Bark.
    Type: Playfair Display headings / Work Sans body (sub for Neue Haas Grotesk).
    Loads after style.css and overrides the CSS custom properties + a few
@@ -14,6 +14,7 @@ body.bugalugs {
   --sand: #c9b79b;             /* Dust */
   --kraft: #a9863e;            /* Weathered Brass */
   --walnut: #6b4a36;           /* Gum Bark */
+  --walnut-text: #6b4a36;
   --rust: #4b5642;             /* Mulga (used as the accent role) */
   --dust: #c9b79b;
   --gold: #a9863e;
@@ -24,8 +25,11 @@ body.bugalugs {
   background: var(--linen);
 }
 
-body.bugalugs .script { color: var(--gold-bright); }
-body.bugalugs .eyebrow { color: var(--walnut); }
+body.bugalugs .script { color: #8c6e2f; }   /* Weathered Brass, deepened to pass 3:1 on Bone */
+body.bugalugs .on-dark .script, body.bugalugs .section-dark .script,
+body.bugalugs .subbrand-strip .script, body.bugalugs .site-footer .script { color: var(--gold-bright); }
+body.bugalugs .brand-mark { letter-spacing: var(--tracking-wide); font-size: 1.3rem; }
+body.bugalugs .eyebrow { color: var(--walnut-text); }
 body.bugalugs .hero-texture {
   background:
     radial-gradient(ellipse at 15% 15%, rgba(169,134,62,0.12), transparent 55%),

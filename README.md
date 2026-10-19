@@ -1,10 +1,10 @@
-# MS Leeds Studio & Bugalugs
+# Ms Leeds Studio & Bugalugs
 
 A static, two-brand marketing website:
 
-- **MS Leeds Studio** (core brand) — communication design, laser cutting and
+- **Ms Leeds Studio** (core brand) — communication design, laser cutting and
   photography prints; showcase + enquiry (no live cart/checkout).
-- **Bugalugs by MS Leeds Studio** (sub-brand, `/bugalugs/`) — luxury open-air photo
+- **Bugalugs by Ms Leeds Studio** (sub-brand, `/bugalugs/`) — luxury open-air photo
   printing booth servicing Western & South-West Queensland events, enquiry-only booking.
 
 Built as plain HTML/CSS/JS — no build step, no framework. Open any `.html` file directly
@@ -17,10 +17,10 @@ python3 -m http.server 8000
 ## Structure
 
 ```
-index.html          MS Leeds Studio landing page
+index.html          Ms Leeds Studio landing page
 studio.html         Services: Communication Design / Laser Cutting / Photography Prints
 work.html           Portfolio (client-side discipline filter)
-gallery.html         Print catalogue (client-side collection filter)
+gallery.html         Prints: Open Edition (print on demand) + Signature Editions (limited to 25)
 about.html            Studio story, process, philosophy
 contact.html          Print enquiry form
 bugalugs/
@@ -28,7 +28,7 @@ bugalugs/
   experience.html      Setup, props, uniforms, trailer, prints & packaging
   gallery.html          Event photo gallery (client-side event-type filter)
   booking.html           Booking enquiry form + service area + practical notes
-css/style.css         Shared design system (MS Leeds Studio palette/type)
+css/style.css         Shared design system (Ms Leeds Studio palette/type)
 css/bugalugs.css      Sub-brand palette/type overrides (loaded after style.css)
 js/main.js            Mobile nav, enquiry forms, filters, first-visit studio chooser, footer year
 ```
@@ -37,7 +37,7 @@ js/main.js            Mobile nav, enquiry forms, filters, first-visit studio cho
 
 Derived from the supplied Brand Bible (Edition 05) and Bugalugs brand guide:
 
-- **MS Leeds Studio** — a blend of the "Paddock Archive" and "Collector's Cabinet"
+- **Ms Leeds Studio** — a blend of the "Paddock Archive" and "Collector's Cabinet"
   directions: charcoal/linen base, one rust accent, gold used only as a considered
   "foil" highlight. Headings in Playfair Display, tagline/signoffs in Allura, pull
   quotes in Cormorant Garamond italic, body in DM Sans.
@@ -59,17 +59,23 @@ Both load their fonts from Google Fonts via `<link>` tags in each page's `<head>
   replace with real projects (image, title, client, discipline) before launch.
 - **Prices, editions and enquiry copy** in `gallery.html` and `bugalugs/gallery.html`
   are indicative — confirm before publishing.
-- **Forms** (`contact.html`, `bugalugs/booking.html`) submit to `action="#"` and only
-  show a client-side success message — no data is actually sent anywhere yet. Wire
-  each `<form>`'s `action` attribute to a form backend (Formspree, Netlify Forms,
-  a serverless function, etc.) before launch.
+- **Forms** (`contact.html`, `bugalugs/booking.html`) send to sophie@msleeds.com
+  through [FormSubmit](https://formsubmit.co) (free, no account). **Before launch:**
+  once the site is live on its real domain, submit each form once — FormSubmit then
+  emails sophie@msleeds.com an "Activate Form" link that must be clicked, or no
+  enquiries will arrive. FormSubmit can then issue a random alias to replace the
+  email address in each form's `action`, which keeps the address out of the page source.
 
 ## First-visit studio chooser
 
 On a visitor's first page view (either brand) a panel slides in from the right
 asking "Are you looking for MLS or Bugalugs by MLS?". Picking either option, or
 closing it, is stored in the browser (`localStorage` key `mls-studio-choice`) so
-it doesn't appear again. The "Switch studio" link in every footer reopens it.
+it doesn't appear again.
+
+Where it appears is one setting at the top of the chooser code in `js/main.js`:
+`CHOOSER_MODE = "everywhere"` (Option A, both sites) or `"studio-only"`
+(Option B, Ms Leeds Studio pages only, so Bugalugs visitors are never interrupted). The "Switch studio" link in every footer reopens it.
 To show it again while testing, clear site data or run
 `localStorage.removeItem("mls-studio-choice")` in the browser console.
 

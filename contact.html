@@ -3,18 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enquire — MS Leeds Studio</title>
+<title>Enquire — Ms Leeds Studio</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%232e2b27'/%3E%3Ctext x='32' y='41' font-family='Georgia,serif' font-size='22' fill='%23cfa85f' text-anchor='middle'%3EMS%3C/text%3E%3C/svg%3E">
-<meta name="description" content="Enquire about fine art prints from MS Leeds Studio — sizing, availability and pricing for Western Queensland photography editions.">
+<meta name="description" content="Enquire about fine art prints from Ms Leeds Studio — sizing, availability and pricing for Western Queensland photography editions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Cormorant+Garamond:ital@1&family=Allura&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
   <div class="container">
-    <a href="index.html" class="brand-mark"><span class="monogram" aria-hidden="true">MS</span><span>MS LEEDS STUDIO<small>Design · Laser · Photography</small></span></a>
+    <a href="index.html" class="brand-mark"><span class="monogram" aria-hidden="true">MS</span><span>Ms Leeds Studio<small>Design · Laser · Photography</small></span></a>
     <nav class="main-nav" aria-label="Main">
       <ul>
         <li><a href="studio.html">Studio</a></li>
@@ -28,6 +29,7 @@
   </div>
 </header>
 
+<main id="main">
 <section class="section-linen" style="padding-top:90px;">
   <div class="container grid grid-2">
     <div>
@@ -37,58 +39,71 @@
       <div class="rule"></div>
       <p><strong>Email</strong><br><a href="mailto:sophie@msleeds.com" style="text-decoration:underline;">sophie@msleeds.com</a></p>
       <p><strong>Studio</strong><br>Charleville, QLD 4470 · Western &amp; South-West Queensland</p>
-      <p><strong>Bugalugs booking enquiries</strong><br>Head to the <a href="bugalugs/booking.html" style="text-decoration:underline;">Bugalugs booking page</a> instead — event enquiries are handled there.</p>
+      <p><strong>Booking Bugalugs for an event?</strong><br>Use the <a href="bugalugs/booking.html" style="text-decoration:underline;">Bugalugs date check</a> instead &mdash; it asks the right questions.</p>
+      <ol class="next-steps">
+        <li><strong>Send the details</strong>Takes about a minute.</li>
+        <li><strong>Sophie replies</strong>With questions, ideas or a quote &mdash; usually within two business days.</li>
+        <li><strong>Get started</strong>Once the scope and price suit you.</li>
+      </ol>
     </div>
 
     <div class="form-wrap">
-      <form data-enquiry-form action="#" method="POST">
-        <div class="field-row">
+      <form data-enquiry-form action="https://formsubmit.co/sophie@msleeds.com" method="POST">
+          <input type="hidden" name="_subject" value="New enquiry — Ms Leeds Studio website">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <div class="hp-field" aria-hidden="true"><label for="_honey">Leave this empty</label><input type="text" id="_honey" name="_honey" tabindex="-1" autocomplete="off"></div>
           <div class="field">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="service">Enquiry about</label>
-            <select id="service" name="service" required>
+            <label for="service">What can we help with?</label>
+            <select id="service" name="Enquiry about" required>
               <option value="">Choose one</option>
-              <option value="design">Communication Design</option>
-              <option value="laser">Laser Cutting</option>
-              <option value="prints">Photography Prints</option>
-              <option value="other">Something else</option>
+              <option value="Communication Design" data-key="design">Communication Design</option>
+              <option value="Laser Cutting" data-key="laser">Laser Cutting</option>
+              <option value="Photography Prints" data-key="prints">Photography Prints</option>
+              <option value="Something else" data-key="other">Something else</option>
             </select>
           </div>
           <div class="field">
-            <label for="detail">Date needed (or print title)</label>
-            <input type="text" id="detail" name="detail" placeholder="e.g. 14 March, or Mulga at First Light">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="Name" autocomplete="name" required>
           </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required>
+          </div>
+          <div class="field">
+            <label for="phone">Mobile <span class="optional">(optional)</span></label>
+            <input type="tel" id="phone" name="Mobile" autocomplete="tel" inputmode="tel">
+          </div>
+          <div class="field">
+            <label for="detail">Print title or date needed <span class="optional">(optional)</span></label>
+            <input type="text" id="detail" name="Print or date" placeholder="e.g. Mulga at First Light, or 14 March">
+          </div>
+          <div class="field">
+            <label for="message">Tell us a little about it</label>
+            <textarea id="message" name="Message" required placeholder="The project, piece, size or space you have in mind"></textarea>
+          </div>
+          <button type="submit" class="btn btn-solid btn-block">Send enquiry</button>
+          <p class="form-note">Sophie replies personally, usually within two business days. Your details are only used to reply to you.</p>
+        </form>
+        <div class="form-success" tabindex="-1">
+          <h3>Thank you &mdash; it's on its way</h3>
+          <p style="margin:0;">Your enquiry has reached Sophie's inbox. Expect a reply within two business days. In the meantime, have a look through the <a href="work.html" style="text-decoration:underline;">recent work</a>.</p>
         </div>
-        <div class="field">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" required placeholder="Tell us about the project, piece, size or space you have in mind..."></textarea>
+        <div class="form-error" role="alert" hidden>
+          <p style="margin:0;">Sorry &mdash; that didn't send. Please try again, or email <a href="mailto:sophie@msleeds.com" style="text-decoration:underline;">sophie@msleeds.com</a> directly.</p>
         </div>
-        <button type="submit" class="btn btn-solid">Send Enquiry</button>
-        <p class="form-note">This form is not yet connected to a live inbox — wire it up to a form service (e.g. Formspree, Netlify Forms) via the form's <code>action</code> attribute, or contact <a href="mailto:sophie@msleeds.com" style="text-decoration:underline;">sophie@msleeds.com</a> directly in the meantime.</p>
-      </form>
-      <div class="form-success">
-        <h3>Thank you</h3>
-        <p style="margin:0;">Your enquiry has been noted. Sophie will be in touch within two business days.</p>
-      </div>
     </div>
   </div>
 </section>
+</main>
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
         <span class="script">Come on bugalugs, you're missing it.</span>
-        <p>MS Leeds Studio — communication design, laser cutting and photography prints, made in Charleville, Queensland.</p>
+        <p>Ms Leeds Studio — communication design, laser cutting and photography prints, made in Charleville, Queensland.</p>
       </div>
       <div>
         <h4>Studio</h4>
@@ -118,7 +133,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> MS Leeds Studio. All rights reserved.</span>
+      <span>&copy; <span data-year></span> Ms Leeds Studio. All rights reserved.</span>
       <span><button type="button" class="link-button" data-open-chooser>Switch studio</button> · Sophie Frances Leeds · Queensland, Australia</span>
     </div>
   </div>

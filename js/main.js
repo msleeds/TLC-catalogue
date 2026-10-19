@@ -1,4 +1,4 @@
-// MS LEEDS STUDIO / BUGALUGS — shared site behaviour
+// Ms Leeds Studio / BUGALUGS — shared site behaviour
 document.addEventListener("DOMContentLoaded", function () {
   // Mobile nav toggle
   var toggle = document.querySelector(".nav-toggle");
@@ -16,26 +16,112 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Enquiry forms: client-side only until a form backend (e.g. Formspree,
-  // Netlify Forms) endpoint is wired into the <form action="..."> attribute.
+  // Enquiry forms: sent to sophie@msleeds.com via FormSubmit's AJAX endpoint
+  // (the <form action> is the no-JavaScript fallback). Errors appear once a
+  // field has been left, not while someone is still typing.
+  function fieldMessage(field) {
+    var v = field.validity;
+    if (v.valueMissing) {
+      return field.tagName === "SELECT" ? "Please choose an option." : "Please fill this in.";
+    }
+    if (v.typeMismatch && field.type === "email") return "That email doesn't look quite right - check for a missing @ or dot.";
+    if (v.rangeUnderflow || v.badInput) return "Please enter a number.";
+    return field.validationMessage;
+  }
+  function showFieldState(field) {
+    var wrap = field.closest(".field");
+    if (!wrap) return true;
+    var msg = wrap.querySelector(".field-error");
+    if (field.checkValidity()) {
+      wrap.classList.remove("is-invalid");
+      field.removeAttribute("aria-invalid");
+      if (msg) msg.textContent = "";
+      return true;
+    }
+    if (!msg) {
+      msg = document.createElement("p");
+      msg.className = "field-error";
+      msg.id = field.id + "-error";
+      wrap.appendChild(msg);
+      field.setAttribute("aria-describedby", msg.id);
+    }
+    msg.textContent = fieldMessage(field);
+    wrap.classList.add("is-invalid");
+    field.setAttribute("aria-invalid", "true");
+    return false;
+  }
+
   document.querySelectorAll("form[data-enquiry-form]").forEach(function (form) {
+    form.noValidate = true;
+    var fields = form.querySelectorAll(".field input, .field select, .field textarea");
+    fields.forEach(function (field) {
+      field.addEventListener("blur", function () {
+        if (field.value !== "" || field.dataset.touched) showFieldState(field);
+        field.dataset.touched = "1";
+      });
+      field.addEventListener("input", function () {
+        if (field.closest(".field").classList.contains("is-invalid")) showFieldState(field);
+      });
+    });
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (!form.reportValidity()) return;
-      var success = form.parentElement.querySelector(".form-success");
-      form.style.display = "none";
-      if (success) success.classList.add("visible");
+      var firstInvalid = null;
+      fields.forEach(function (field) {
+        if (!showFieldState(field) && !firstInvalid) firstInvalid = field;
+      });
+      if (firstInvalid) { firstInvalid.focus(); return; }
+
+      var holder = form.parentElement;
+      var success = holder.querySelector(".form-success");
+      var failure = holder.querySelector(".form-error");
+      var button = form.querySelector("button[type=submit]");
+      function done() {
+        form.hidden = true;
+        if (failure) failure.hidden = true;
+        if (success) { success.classList.add("visible"); success.focus(); }
+      }
+      // Honeypot filled in: almost certainly a bot, so quietly do nothing
+      var honey = form.querySelector("[name=_honey]");
+      if (honey && honey.value) { done(); return; }
+
+      var data = {};
+      new FormData(form).forEach(function (value, key) { data[key] = value; });
+      var label = button.textContent;
+      button.disabled = true;
+      button.textContent = "Sending\u2026";
+      if (failure) failure.hidden = true;
+
+      fetch(form.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data)
+      })
+        .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
+        .then(function (r) {
+          if (r.ok && String(r.body.success) === "true") done();
+          else throw new Error(r.body.message || "Send failed");
+        })
+        .catch(function () {
+          button.disabled = false;
+          button.textContent = label;
+          if (failure) failure.hidden = false;
+        });
     });
   });
 
   // Prefill the contact form's subject from ?service= or ?print= links
   var params = new URLSearchParams(window.location.search);
   var serviceField = document.getElementById("service");
-  if (serviceField && params.get("service")) serviceField.value = params.get("service");
+  function chooseService(key) {
+    var opt = serviceField && serviceField.querySelector('option[data-key="' + key + '"]');
+    if (opt) serviceField.value = opt.value;
+  }
+  if (params.get("service")) chooseService(params.get("service"));
   var detailField = document.getElementById("detail");
   if (detailField && params.get("print")) {
     detailField.value = params.get("print");
-    if (serviceField) serviceField.value = "prints";
+    chooseService("prints");
   }
 
   // Simple filters (Work, Prints): buttons carry data-filter, items data-cat
@@ -61,6 +147,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // First-visit studio chooser: "Are you looking for MLS or Bugalugs by MLS?"
   // Slides in from the right once per browser; the choice (or a dismissal)
   // is remembered so returning visitors aren't interrupted again.
+  // Where the chooser appears on a first visit:
+  //   "everywhere"  (Option A) on whichever page of either site someone lands on
+  //   "studio-only" (Option B) only on Ms Leeds Studio pages, so Bugalugs visitors
+  //                 (e.g. from an event ad) go straight to Bugalugs uninterrupted
+  var CHOOSER_MODE = "everywhere";
   var CHOICE_KEY = "mls-studio-choice";
   var onBugalugs = document.body.classList.contains("bugalugs");
   var root = onBugalugs ? "../" : "";
@@ -80,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var cta = isCurrent ? "Continue here" : (mls ? "Switch to the Studio" : "Switch to Bugalugs");
     return '<a class="chooser-option ' + (mls ? "opt-mls" : "opt-bug") + '" href="' + href + '" data-choice="' + key + '"' + (isCurrent ? ' data-current' : '') + '>' +
       '<span class="monogram" aria-hidden="true">' + (mls ? "MS" : "B") + '</span>' +
-      '<span class="chooser-name">' + (mls ? "MS Leeds Studio" : "Bugalugs by MLS") + '</span>' +
+      '<span class="chooser-name">' + (mls ? "Ms Leeds Studio" : "Bugalugs by MLS") + '</span>' +
       '<span class="chooser-desc">' + (mls
         ? "Communication design, laser cutting and photography prints."
         : "Event portrait + print studio. Weddings, formals, ag shows, races and balls across South-West &amp; Western Queensland.") + '</span>' +
@@ -168,7 +259,27 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.addEventListener("click", openChooser);
   });
   // Short delay so the page itself registers before the panel arrives
-  if (!readChoice()) setTimeout(openChooser, 900);
+  var autoOpen = CHOOSER_MODE === "everywhere" || !onBugalugs;
+  if (autoOpen && !readChoice()) setTimeout(openChooser, 900);
+
+  // Bugalugs on phones: keep "Check your date" within thumb reach, except on the
+  // booking page itself; tuck it away while the hero buttons are on screen.
+  if (onBugalugs && !document.querySelector("form[data-enquiry-form]")) {
+    var cta = document.createElement("a");
+    cta.className = "mobile-cta is-hidden";
+    cta.href = "booking.html";
+    cta.textContent = "Check your date";
+    document.body.appendChild(cta);
+    document.body.classList.add("has-mobile-cta");
+    var heroActions = document.querySelector(".hero-actions");
+    if (heroActions && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        cta.classList.toggle("is-hidden", entries[0].isIntersecting);
+      }).observe(heroActions);
+    } else {
+      cta.classList.remove("is-hidden");
+    }
+  }
 
   // Current year in footer
   document.querySelectorAll("[data-year]").forEach(function (el) {
