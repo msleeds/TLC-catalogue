@@ -2,8 +2,8 @@
 
 A static, two-brand marketing website:
 
-- **MS Leeds Studio** (core brand) — fine art Australian photography, limited-edition
-  prints, showcase + enquiry (no live cart/checkout).
+- **MS Leeds Studio** (core brand) — communication design, laser cutting and
+  photography prints; showcase + enquiry (no live cart/checkout).
 - **Bugalugs by MS Leeds Studio** (sub-brand, `/bugalugs/`) — luxury open-air photo
   printing booth servicing Western & South-West Queensland events, enquiry-only booking.
 
@@ -17,7 +17,9 @@ python3 -m http.server 8000
 ## Structure
 
 ```
-index.html          MS Leeds Studio home
+index.html          MS Leeds Studio landing page
+studio.html         Services: Communication Design / Laser Cutting / Photography Prints
+work.html           Portfolio (client-side discipline filter)
 gallery.html         Print catalogue (client-side collection filter)
 about.html            Studio story, process, philosophy
 contact.html          Print enquiry form
@@ -28,7 +30,7 @@ bugalugs/
   booking.html           Booking enquiry form + service area + practical notes
 css/style.css         Shared design system (MS Leeds Studio palette/type)
 css/bugalugs.css      Sub-brand palette/type overrides (loaded after style.css)
-js/main.js            Mobile nav toggle, enquiry-form handling, footer year
+js/main.js            Mobile nav, enquiry forms, filters, first-visit studio chooser, footer year
 ```
 
 ## Brand system
@@ -53,12 +55,23 @@ Both load their fonts from Google Fonts via `<link>` tags in each page's `<head>
   `.frame.dark` in `css/style.css`) with an italic caption, standing in for real
   photography. Replace each `.frame` div's background with an `<img>` (the caption
   span can stay as an `<figcaption>` or be removed).
+- **Work page projects** (`work.html`) are placeholder slots with generic titles —
+  replace with real projects (image, title, client, discipline) before launch.
 - **Prices, editions and enquiry copy** in `gallery.html` and `bugalugs/gallery.html`
   are indicative — confirm before publishing.
 - **Forms** (`contact.html`, `bugalugs/booking.html`) submit to `action="#"` and only
   show a client-side success message — no data is actually sent anywhere yet. Wire
   each `<form>`'s `action` attribute to a form backend (Formspree, Netlify Forms,
   a serverless function, etc.) before launch.
+
+## First-visit studio chooser
+
+On a visitor's first page view (either brand) a panel slides in from the right
+asking "Are you looking for MLS or Bugalugs by MLS?". Picking either option, or
+closing it, is stored in the browser (`localStorage` key `mls-studio-choice`) so
+it doesn't appear again. The "Switch studio" link in every footer reopens it.
+To show it again while testing, clear site data or run
+`localStorage.removeItem("mls-studio-choice")` in the browser console.
 
 ## Notes
 
